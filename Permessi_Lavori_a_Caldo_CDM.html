@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Permessi Lavori a Fuoco PR07 — CDM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --navy:        #0d1b2e;
+  --navy-light:  #152236;
+  --navy-mid:    #1e3252;
+  --orange:      #f5820d;
+  --amber:       #ffb347;
+  --fire:        #e84040;
+  --fire-dim:    #2d1515;
+  --green:       #3dbe6e;
+  --green-dim:   #0e2318;
+  --yellow:      #f5c518;
+  --slate:       #8ca0b8;
+  --slate-light: #b8c9d9;
+  --white:       #f0f4f8;
+  --card-bg:     #162232;
+  --card-border: rgba(140,160,184,0.15);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+}
+
+body::before {
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(232,64,64,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(245,130,13,0.05) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── HEADER ── */
+header {
+  position:sticky;top:0;z-index:100;
+  background:rgba(13,27,46,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--card-border);
+  padding:0 32px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.logo {display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-icon {
+  width:38px;height:38px;
+  background:linear-gradient(135deg,#e84040,#f5820d);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:white;flex-shrink:0;
+}
+.logo-text {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.25rem;font-weight:700;letter-spacing:.04em;color:var(--white);line-height:1;
+}
+.logo-text span {
+  display:block;font-size:.62rem;font-weight:400;
+  color:var(--slate);letter-spacing:.15em;text-transform:uppercase;
+}
+.header-right {display:flex;align-items:center;gap:12px;}
+.btn-primary {
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#e84040,#f5820d);
+  color:white;border:none;border-radius:20px;
+  padding:9px 20px;font-family:'Barlow',sans-serif;
+  font-size:.9rem;font-weight:600;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,64,64,0.35);}
+.btn-back {
+  background:transparent;border:1px solid var(--card-border);
+  border-radius:8px;color:var(--slate);padding:7px 14px;
+  font-family:'Barlow',sans-serif;font-size:.82rem;cursor:pointer;
+  display:flex;align-items:center;gap:6px;transition:all .2s;
+  text-decoration:none;
+}
+.btn-back:hover{border-color:var(--slate);color:var(--white);}
+
+/* ── LAYOUT ── */
+.layout {display:flex;position:relative;z-index:1;}
+main {flex:1;padding:36px 40px;max-width:1200px;}
+
+/* ── STATS ── */
+.stats-row {display:flex;gap:12px;margin-bottom:40px;}
+.stat-card {
+  flex:1;background:var(--card-bg);
+  border:1px solid var(--card-border);border-radius:12px;
+  padding:16px 20px;display:flex;align-items:center;gap:14px;
+}
+.stat-icon {
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+}
+.stat-value {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.8rem;font-weight:700;line-height:1;margin-bottom:2px;
+}
+.stat-label {font-size:.75rem;color:var(--slate);}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;
+}
+.section-title {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.05rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--slate-light);
+}
+
+/* ── PERMESSI LIST ── */
+.permessi-list {display:flex;flex-direction:column;gap:12px;margin-bottom:48px;}
+
+.permesso-card {
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:14px;padding:18px 22px;
+  display:flex;align-items:center;gap:18px;
+  transition:all .2s;cursor:pointer;position:relative;overflow:hidden;
+}
+.permesso-card::before {
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--fire);border-radius:3px 0 0 3px;
+}
+.permesso-card.status-chiuso::before { background:var(--green); }
+.permesso-card.status-scaduto::before { background:var(--slate); }
+.permesso-card.status-bozza::before { background:var(--yellow); }
+.permesso-card:hover {
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(0,0,0,.35);
+  border-color:rgba(232,64,64,.25);
+}
+
+.permesso-fire-icon {
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+  background:var(--fire-dim);
+}
+.permesso-card.status-chiuso .permesso-fire-icon {background:var(--green-dim);}
+.permesso-card.status-scaduto .permesso-fire-icon {background:rgba(140,160,184,.08);}
+.permesso-card.status-bozza .permesso-fire-icon {background:rgba(245,197,24,.08);}
+
+.permesso-info {flex:1;min-width:0;}
+.permesso-num {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.03em;margin-bottom:3px;
+}
+.permesso-desc {font-size:.82rem;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.permesso-meta {
+  display:flex;align-items:center;gap:16px;
+  font-size:.72rem;color:var(--slate);margin-top:6px;
+}
+.permesso-meta i {width:12px;}
+
+.permesso-right {display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.badge {
+  padding:4px 12px;border-radius:20px;
+  font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+.badge-attivo  {background:rgba(232,64,64,.15);color:#e84040;}
+.badge-chiuso  {background:rgba(61,190,110,.15);color:#3dbe6e;}
+.badge-scaduto {background:rgba(140,160,184,.12);color:var(--slate);}
+.badge-bozza   {background:rgba(245,197,24,.12);color:var(--yellow);}
+
+.permesso-actions {display:flex;gap:6px;}
+.btn-icon {
+  width:32px;height:32px;border-radius:8px;border:1px solid var(--card-border);
+  background:transparent;color:var(--slate);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  transition:all .15s;
+}
+.btn-icon:hover {background:var(--navy-mid);color:var(--white);}
+.btn-icon.danger:hover {background:rgba(232,64,64,.15);color:#e84040;border-color:rgba(232,64,64,.3);}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align:center;padding:80px 20px;color:var(--slate);
+}
+.empty-state .icon {font-size:3rem;margin-bottom:12px;opacity:.4;}
+.empty-state p {font-size:.9rem;}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display:none;position:fixed;inset:0;
+  background:rgba(8,14,24,.92);backdrop-filter:blur(12px);
+  z-index:500;align-items:flex-start;justify-content:center;
+  overflow-y:auto;padding:40px 20px;
+}
+.modal-overlay.open {display:flex;}
+.modal {
+  background:var(--card-bg);border:1px solid rgba(232,64,64,.2);
+  border-radius:20px;width:100%;max-width:680px;
+  animation:slideUp .3s ease;margin:auto;
+}
+@keyframes slideUp {from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+.modal-header {
+  background:linear-gradient(135deg,var(--fire-dim),rgba(245,130,13,.08));
+  border-bottom:1px solid rgba(232,64,64,.15);
+  padding:24px 28px;border-radius:20px 20px 0 0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.4rem;font-weight:700;letter-spacing:.03em;
+  display:flex;align-items:center;gap:10px;
+}
+.modal-close {
+  width:32px;height:32px;border-radius:8px;border:1px solid var(--card-border);
+  background:transparent;color:var(--slate);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;transition:all .15s;
+}
+.modal-close:hover {background:rgba(232,64,64,.15);color:#e84040;}
+
+.modal-body {padding:28px;}
+
+/* ── FORM ── */
+.form-grid {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0;}
+.form-full {grid-column:1/-1;}
+.form-group {display:flex;flex-direction:column;gap:6px;}
+.form-label {
+  font-size:.72rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--slate);
+}
+.form-label .required {color:#e84040;margin-left:2px;}
+.form-input, .form-select, .form-textarea {
+  background:var(--navy-mid);border:1.5px solid var(--card-border);
+  border-radius:10px;padding:11px 14px;
+  font-family:'Barlow',sans-serif;font-size:.9rem;
+  color:var(--white);outline:none;transition:border-color .2s;
+  width:100%;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus {border-color:#e84040;}
+.form-input::placeholder,.form-textarea::placeholder {color:var(--slate);}
+.form-select option {background:var(--navy-mid);}
+.form-textarea {min-height:80px;resize:vertical;}
+
+.section-divider {
+  grid-column:1/-1;
+  border:none;border-top:1px solid var(--card-border);
+  margin:8px 0 4px;
+}
+.section-sub {
+  grid-column:1/-1;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(232,64,64,.7);
+  margin-bottom:-4px;
+}
+
+/* ── CHECKLIST ── */
+.checklist-grid {
+  grid-column:1/-1;
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  background:var(--navy-mid);border-radius:12px;padding:16px;
+  border:1.5px solid var(--card-border);
+}
+.check-item {
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:8px;cursor:pointer;
+  transition:background .15s;
+}
+.check-item:hover {background:rgba(255,255,255,.04);}
+.check-item input[type=checkbox] {
+  width:16px;height:16px;cursor:pointer;accent-color:#e84040;flex-shrink:0;
+}
+.check-item label {
+  font-size:.82rem;color:var(--slate-light);cursor:pointer;line-height:1.3;
+}
+
+/* ── MODAL FOOTER ── */
+.modal-footer {
+  padding:20px 28px;border-top:1px solid var(--card-border);
+  display:flex;justify-content:flex-end;gap:10px;
+}
+.btn-cancel {
+  background:transparent;border:1px solid var(--card-border);
+  border-radius:10px;color:var(--slate);padding:10px 20px;
+  font-family:'Barlow',sans-serif;font-size:.9rem;cursor:pointer;
+  transition:all .2s;
+}
+.btn-cancel:hover {border-color:var(--slate);color:var(--white);}
+.btn-submit {
+  background:linear-gradient(135deg,#e84040,#f5820d);
+  color:white;border:none;border-radius:10px;
+  padding:10px 24px;font-family:'Barlow',sans-serif;
+  font-size:.9rem;font-weight:600;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;gap:8px;
+}
+.btn-submit:hover {transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,64,64,.35);}
+
+/* ── DETAIL MODAL ── */
+.detail-header-info {margin-bottom:20px;}
+.detail-num {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2rem;font-weight:800;
+  background:linear-gradient(135deg,#e84040,#f5820d);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;margin-bottom:4px;
+}
+.detail-grid {
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;
+}
+.detail-item {
+  background:var(--navy-mid);border-radius:10px;padding:12px 16px;
+}
+.detail-item-label {
+  font-size:.65rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--slate);margin-bottom:4px;
+}
+.detail-item-val {font-size:.9rem;color:var(--white);}
+.detail-full {grid-column:1/-1;}
+.checklist-preview {
+  background:var(--navy-mid);border-radius:10px;padding:14px 16px;
+  margin-bottom:20px;
+}
+.checklist-preview h4 {
+  font-size:.7rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--slate);margin-bottom:10px;
+}
+.check-row {
+  display:flex;align-items:center;gap:8px;
+  font-size:.82rem;color:var(--slate-light);
+  padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.check-row:last-child {border-bottom:none;}
+.check-row i {font-size:13px;width:16px;}
+.check-row.ok i {color:var(--green);}
+.check-row.no i {color:var(--slate);}
+.detail-actions {display:flex;gap:8px;flex-wrap:wrap;}
+.btn-action {
+  flex:1;padding:10px;border:1.5px solid var(--card-border);
+  border-radius:10px;background:transparent;color:var(--slate-light);
+  font-family:'Barlow',sans-serif;font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;
+  justify-content:center;gap:6px;
+}
+.btn-action:hover {background:var(--navy-mid);color:var(--white);}
+.btn-action.green {border-color:rgba(61,190,110,.3);color:var(--green);}
+.btn-action.green:hover {background:rgba(61,190,110,.1);}
+.btn-action.red {border-color:rgba(232,64,64,.3);color:#e84040;}
+.btn-action.red:hover {background:rgba(232,64,64,.1);}
+
+/* ── PRINT ── */
+@media print {
+  body {background:white;color:black;}
+  header,.modal-overlay:not(.printing),.btn-back {display:none!important;}
+  .modal-overlay.printing {
+    display:block!important;position:static;background:white;padding:0;
+  }
+  .modal {border:none;border-radius:0;max-width:none;}
+  .modal-footer,.modal-close,.detail-actions {display:none!important;}
+  .modal-header {background:#f5f5f5;border-bottom:2px solid #333;}
+  .modal-title {color:black;}
+  .detail-num {-webkit-text-fill-color:#e84040;}
+  .detail-item {background:#f9f9f9;border:1px solid #ddd;}
+  .detail-item-val,.check-row {color:#333;}
+  .detail-item-label,.checklist-preview h4 {color:#666;}
+  .checklist-preview {background:#f9f9f9;border:1px solid #ddd;}
+}
+
+/* ── TOAST ── */
+.toast {
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:10px;padding:12px 18px;font-size:.85rem;
+  display:flex;align-items:center;gap:10px;
+  transform:translateY(60px);opacity:0;
+  transition:all .3s;pointer-events:none;
+}
+.toast.show {transform:translateY(0);opacity:1;}
+
+@keyframes fadeUp {from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="CDM_Workspace_Portal.html">
+    <div class="logo-icon">🔥</div>
+    <div class="logo-text">
+      Lavori a Fuoco
+      <span>Cantiere delle Marche — PR07</span>
+    </div>
+  </a>
+  <div class="header-right">
+    <button class="btn-primary" onclick="openNewModal()">
+      <i class="fas fa-plus"></i> Nuovo Permesso
+    </button>
+    <a href="CDM_Workspace_Portal.html" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Portal
+    </a>
+  </div>
+</header>
+
+<div class="layout">
+<main>
+
+  <!-- STATS -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:rgba(232,64,64,.12);">
+        <i class="fas fa-fire" style="color:#e84040;"></i>
+      </div>
+      <div>
+        <div class="stat-value" id="statAttivi" style="color:#e84040;">0</div>
+        <div class="stat-label">Attivi</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:rgba(61,190,110,.1);">
+        <i class="fas fa-check-circle" style="color:#3dbe6e;"></i>
+      </div>
+      <div>
+        <div class="stat-value" id="statChiusi" style="color:#3dbe6e;">0</div>
+        <div class="stat-label">Chiusi</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:rgba(245,197,24,.1);">
+        <i class="fas fa-file-pen" style="color:#f5c518;"></i>
+      </div>
+      <div>
+        <div class="stat-value" id="statBozze" style="color:#f5c518;">0</div>
+        <div class="stat-label">Bozze</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:rgba(140,160,184,.08);">
+        <i class="fas fa-list" style="color:var(--slate);"></i>
+      </div>
+      <div>
+        <div class="stat-value" id="statTotali" style="color:var(--slate-light);">0</div>
+        <div class="stat-label">Totale</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATTIVI -->
+  <div class="section-header">
+    <div class="section-title">🔥 Permessi Attivi</div>
+  </div>
+  <div class="permessi-list" id="listaAttivi">
+    <div class="empty-state"><div class="icon">🔥</div><p>Nessun permesso attivo</p></div>
+  </div>
+
+  <!-- BOZZE -->
+  <div class="section-header">
+    <div class="section-title">📝 Bozze</div>
+  </div>
+  <div class="permessi-list" id="listaBozze">
+    <div class="empty-state"><div class="icon">📄</div><p>Nessuna bozza</p></div>
+  </div>
+
+  <!-- STORICO -->
+  <div class="section-header">
+    <div class="section-title">📋 Storico Chiusi</div>
+  </div>
+  <div class="permessi-list" id="listaChiusi">
+    <div class="empty-state"><div class="icon">📋</div><p>Nessun permesso chiuso</p></div>
+  </div>
+
+</main>
+</div>
+
+<!-- ════ MODAL NUOVO PERMESSO ════ -->
+<div class="modal-overlay" id="modalNuovo">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🔥 Richiesta Lavori a Fuoco — M01PR07</div>
+      <button class="modal-close" onclick="closeModal('modalNuovo')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+
+        <!-- ══ INTESTAZIONE MODULO M01PR07 ══ -->
+        <div class="form-group form-full" style="background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.2);border-radius:10px;padding:10px 14px;margin-bottom:4px;">
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;color:rgba(232,64,64,.8);text-transform:uppercase;margin-bottom:2px;">M01PR07 Rev.01 — Richiesta Lavori a Fuoco</div>
+          <div style="font-size:.75rem;color:var(--slate);">Da compilare prima dell'inizio della lavorazione · PR07 Rev.01 del 29.03.2021</div>
+        </div>
+
+        <!-- Localizzazione + Data -->
+        <div class="form-group form-full">
+          <label class="form-label">Localizzazione della lavorazione a fuoco<span class="required">*</span></label>
+          <input type="text" id="fLuogo" class="form-input" placeholder="es. Capannone A — Posto 3 — bordo scafo">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Imbarcazione / Commessa<span class="required">*</span></label>
+          <input type="text" id="fCommessa" class="form-input" placeholder="es. M/Y 115.42">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Data (giorno o periodo lavorazioni)<span class="required">*</span></label>
+          <input type="date" id="fDataInizio" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ora dalle<span class="required">*</span></label>
+          <input type="time" id="fOraInizio" class="form-input" value="08:00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">alle</label>
+          <input type="time" id="fOraFine" class="form-input" value="17:00">
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-sub">👷 Richiedente e Autorizzazione</div>
+
+        <div class="form-group">
+          <label class="form-label">Richiedente (nome e Ditta)<span class="required">*</span></label>
+          <input type="text" id="fEsecutore" class="form-input" placeholder="Nome, Cognome e Ditta">
+        </div>
+        <div class="form-group">
+          <label class="form-label">In qualità di</label>
+          <input type="text" id="fQualita" class="form-input" placeholder="es. Saldatore, Capo squadra...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Autorizzazione rilasciata da<span class="required">*</span></label>
+          <input type="text" id="fAutorizzato" class="form-input" placeholder="es. DS / Ing. Piccinini (RSPP)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Addetto Antincendio (rischio medio)<span class="required">*</span></label>
+          <input type="text" id="fAntincendio" class="form-input" placeholder="Nome e Cognome">
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-sub">🔥 Tipo di Lavorazione</div>
+
+        <div class="form-group form-full">
+          <label class="form-label">Tipo di Lavoro a Caldo<span class="required">*</span></label>
+          <select id="fTipoLavoro" class="form-select">
+            <option value="">— Seleziona —</option>
+            <option>Saldatura MIG/MAG</option>
+            <option>Saldatura TIG</option>
+            <option>Saldatura ad elettrodo</option>
+            <option>Taglio con cannello ossiacetilenico</option>
+            <option>Taglio plasma</option>
+            <option>Molatura / smerigliatrice</option>
+            <option>Brasatura</option>
+            <option>Applicazione a caldo materiali isolanti</option>
+            <option>Scongelamento tubazioni</option>
+            <option>Uso fiamma libera</option>
+            <option>Altro lavoro a caldo</option>
+          </select>
+        </div>
+
+        <div class="form-group form-full">
+          <label class="form-label">1. Descrizione dettagliata di zona e lavoro</label>
+          <textarea id="fDescrizione" class="form-textarea" placeholder="Descrivi dettagliatamente la zona e il lavoro previsto. Zona confinante con ambiente a rischio incendio?"></textarea>
+        </div>
+
+        <div class="form-group form-full">
+          <label class="form-label">2. Verifica interferenze con altre lavorazioni</label>
+          <textarea id="fInterferenze" class="form-textarea" placeholder="Azioni per evitare interferenze pericolose (segregazione / vigilanza / differimento orario / altre misure)..."></textarea>
+        </div>
+
+        <div class="form-group form-full">
+          <label class="form-label">3. DPI e DPC aggiuntivi richiesti</label>
+          <input type="text" id="fDpi" class="form-input" placeholder="es. schermi inattinici, aspirazioni localizzate, tuta ignifuga... (standard PR07 sempre obbligatori)">
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-sub">✅ Verifiche Pre-Lavoro — PR07 Rev.01</div>
+
+        <div style="grid-column:1/-1;font-size:.72rem;color:var(--slate);margin-bottom:4px;">
+          <strong style="color:rgba(232,64,64,.7);">A — Operazioni preliminari generali</strong>
+        </div>
+        <div class="checklist-grid">
+          <label class="check-item"><input type="checkbox" class="chk" value="Preposto informato della necessità di lavori a caldo fuori area carpenteria"><span>Preposto informato (lavori fuori area carpenteria / a bordo scafo)</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Assenza/rimozione materiali combustibili nelle vicinanze (10m in ambienti aperti) o protezione con teli/schermi ignifughi"><span>Materiali combustibili rimossi o protetti con teli/schermi ignifughi (10m in ambienti aperti)</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Estintore 34A 233 BC presente nelle vicinanze della zona di lavoro"><span>Estintore 34A 233 BC presente nelle vicinanze</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Addetto antincendio formato (rischio MEDIO) presente"><span>Addetto antincendio formato (rischio MEDIO) presente</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Vie di esodo sgombre e facilmente percorribili"><span>Vie di esodo sgombre e facilmente percorribili</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Attrezzature in buono stato (tensione/amperaggio, collegamenti elettrici, tubazioni gas, valvole)"><span>Attrezzature verificate (collegamenti elettrici, tubazioni gas, valvole)</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Assenza bocchette di aspirazione diverse da quelle per saldatura — o preposto informato"><span>Assenza bocchette aspirazione anomale (o preposto informato)</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Bombole ancorate su ceste o carrelli (anti-caduta) con cappellotti sulle valvole"><span>Bombole ancorate su ceste/carrelli con cappellotti sulle valvole</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Assenza residui combustibili di altre lavorazioni nell'area"><span>Assenza residui combustibili da altre lavorazioni nell'area</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Aperture/interstizi in pavimenti e pareti chiusi con materiali incombustibili"><span>Aperture/interstizi in pavimenti e pareti chiusi con materiali incombustibili</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Aperture sullo scafo (passaggio particelle verso aree inferiori/esterne) protette con materiali incombustibili"><span>Aperture scafo (livelli inferiori/esterni) protette con materiali incombustibili</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="4. Vie di fuga libere e n° estintori aggiuntivi collocati (M01PR07 punto 4)"><span>Vie di fuga libere + estintori aggiuntivi collocati (punto 4 modulo)</span></label>
+        </div>
+
+        <div style="grid-column:1/-1;font-size:.72rem;color:var(--slate);margin:8px 0 4px;">
+          <strong style="color:rgba(232,64,64,.7);">B — Durante la lavorazione</strong>
+        </div>
+        <div class="checklist-grid">
+          <label class="check-item"><input type="checkbox" class="chk" value="Protezioni mantenute efficaci durante tutta la lavorazione"><span>Protezioni mantenute efficaci durante tutta la lavorazione</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Nessuna proiezione di particelle incandescenti in zone a rischio incendio"><span>Nessuna proiezione particelle incandescenti in zone a rischio</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Durante le pause: apparecchiature spente / valvole gas chiuse"><span>Durante pause: apparecchiature spente / valvole gas chiuse</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Parti calde riposte su appositi supporti lontano da materiale combustibile"><span>Parti calde riposte su supporti (lontano da materiali combustibili)</span></label>
+        </div>
+
+        <div style="grid-column:1/-1;font-size:.72rem;color:var(--slate);margin:8px 0 4px;">
+          <strong style="color:rgba(232,64,64,.7);">C — Terminata la lavorazione</strong>
+        </div>
+        <div class="checklist-grid">
+          <label class="check-item"><input type="checkbox" class="chk" value="Verificata assenza particelle incandescenti o surriscaldamenti nell'area e nelle aree limitrofe"><span>Verificata assenza particelle incandescenti/surriscaldamenti nell'area e limitrofe</span></label>
+          <label class="check-item"><input type="checkbox" class="chk" value="Controllo dopo 30 minuti: assenza principi di incendio o surriscaldamenti (o termine lavori almeno 30 min prima fine turno)"><span>Controllo dopo 30 minuti: assenza incendi/surriscaldamenti (o fine lavori -30 min dal turno)</span></label>
+        </div>
+
+        <div class="form-group form-full">
+          <label class="form-label">Note aggiuntive / Azioni per interferenze</label>
+          <textarea id="fNote" class="form-textarea" placeholder="Eventuali rischi specifici, precauzioni extra, misure di segregazione..."></textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('modalNuovo')">Annulla</button>
+      <button class="btn-submit" onclick="salvaPermesso('bozza')">
+        <i class="fas fa-save"></i> Salva come Bozza
+      </button>
+      <button class="btn-submit" onclick="salvaPermesso('attivo')">
+        <i class="fas fa-fire"></i> Emetti Permesso
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL DETTAGLIO ════ -->
+<div class="modal-overlay" id="modalDettaglio">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="detailTitle">🔥 Permesso</div>
+      <button class="modal-close" onclick="closeModal('modalDettaglio')">✕</button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'cdm_permessi_caldo';
+let permessi = [];
+let editingId = null;
+
+// ── STORAGE ──
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(permessi)); }
+function load() {
+  try { permessi = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch(e) { permessi = []; }
+}
+
+function genId() {
+  const y = new Date().getFullYear();
+  const n = String(permessi.length + 1).padStart(3,'0');
+  return `PAC-${y}-${n}`;
+}
+
+// ── RENDER ──
+function render() {
+  const attivi  = permessi.filter(p => p.status === 'attivo');
+  const bozze   = permessi.filter(p => p.status === 'bozza');
+  const chiusi  = permessi.filter(p => p.status === 'chiuso' || p.status === 'scaduto');
+
+  document.getElementById('statAttivi').textContent  = attivi.length;
+  document.getElementById('statChiusi').textContent  = chiusi.length;
+  document.getElementById('statBozze').textContent   = bozze.length;
+  document.getElementById('statTotali').textContent  = permessi.length;
+
+  renderLista('listaAttivi',  attivi,  'Nessun permesso attivo');
+  renderLista('listaBozze',   bozze,   'Nessuna bozza');
+  renderLista('listaChiusi',  chiusi,  'Nessun permesso chiuso');
+}
+
+function renderLista(id, lista, emptyMsg) {
+  const el = document.getElementById(id);
+  if (!lista.length) {
+    const icon = id === 'listaAttivi' ? '🔥' : id === 'listaBozze' ? '📄' : '📋';
+    el.innerHTML = `<div class="empty-state"><div class="icon">${icon}</div><p>${emptyMsg}</p></div>`;
+    return;
+  }
+  el.innerHTML = lista.map(p => {
+    const badgeClass = {attivo:'badge-attivo',chiuso:'badge-chiuso',scaduto:'badge-scaduto',bozza:'badge-bozza'}[p.status];
+    const badgeLabel = {attivo:'Attivo',chiuso:'Chiuso',scaduto:'Scaduto',bozza:'Bozza'}[p.status];
+    const icon = p.status === 'chiuso' ? '✅' : p.status === 'scaduto' ? '⏰' : p.status === 'bozza' ? '📝' : '🔥';
+    const chk  = (p.checklist||[]).filter(Boolean).length;
+    const tot  = 18;
+    return `
+    <div class="permesso-card status-${p.status}" onclick="openDetail('${p.id}')">
+      <div class="permesso-fire-icon">${icon}</div>
+      <div class="permesso-info">
+        <div class="permesso-num">${p.id} — ${p.tipoLavoro || 'Lavoro a caldo'}</div>
+        <div class="permesso-desc">${p.luogo || 'Zona non specificata'} ${p.commessa ? '· Scafo ' + p.commessa : ''}</div>
+        <div class="permesso-meta">
+          <span><i class="fas fa-calendar"></i> ${p.dataInizio || '—'}</span>
+          <span><i class="fas fa-clock"></i> ${p.oraInizio||'?'} – ${p.oraFine||'?'}</span>
+          <span><i class="fas fa-user-helmet-safety"></i> ${p.esecutore || '—'}</span>
+          <span><i class="fas fa-list-check"></i> ${chk}/${tot} check</span>
+        </div>
+      </div>
+      <div class="permesso-right">
+        <span class="badge ${badgeClass}">${badgeLabel}</span>
+        <div class="permesso-actions" onclick="event.stopPropagation()">
+          <button class="btn-icon" onclick="openDetail('${p.id}')" title="Dettaglio"><i class="fas fa-eye"></i></button>
+          <button class="btn-icon" onclick="printPermesso('${p.id}')" title="Stampa"><i class="fas fa-print"></i></button>
+          <button class="btn-icon danger" onclick="deletePermesso('${p.id}')" title="Elimina"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── SALVA ──
+function salvaPermesso(status) {
+  const d = document.getElementById('fDataInizio').value;
+  const l = document.getElementById('fLuogo').value.trim();
+  const t = document.getElementById('fTipoLavoro').value;
+  const e = document.getElementById('fEsecutore').value.trim();
+  const a = document.getElementById('fAntincendio').value.trim();
+  const auth = document.getElementById('fAutorizzato').value.trim();
+
+  if (!d || !l || !t || !e || !a || !auth) {
+    showToast('⚠️ Compila i campi obbligatori (*)');
+    return;
+  }
+
+  const checks = [...document.querySelectorAll('#modalNuovo .chk')].map(c => c.checked ? c.value : null);
+  const chkOk = checks.filter(Boolean).length;
+  const chkTot = checks.length;
+
+  if (status === 'attivo' && chkOk < chkTot) {
+    if (!confirm(`⚠️ Attenzione: solo ${chkOk}/${chkTot} verifiche spuntate.\nEmettere il permesso comunque?`)) return;
+  }
+
+  const p = {
+    id:           editingId || genId(),
+    status,
+    dataInizio:   d,
+    oraInizio:    document.getElementById('fOraInizio').value,
+    oraFine:      document.getElementById('fOraFine').value,
+    luogo:        l,
+    commessa:     document.getElementById('fCommessa').value.trim(),
+    tipoLavoro:   t,
+    descrizione:  document.getElementById('fDescrizione').value.trim(),
+    interferenze: document.getElementById('fInterferenze').value.trim(),
+    dpi:          document.getElementById('fDpi').value.trim(),
+    esecutore:    e,
+    qualita:      document.getElementById('fQualita').value.trim(),
+    antincendio:  a,
+    autorizzato:  auth,
+    note:         document.getElementById('fNote').value.trim(),
+    checklist:    checks,
+    createdAt:    new Date().toISOString()
+  };
+
+  if (editingId) {
+    const idx = permessi.findIndex(x => x.id === editingId);
+    if (idx >= 0) permessi[idx] = p;
+  } else {
+    permessi.unshift(p);
+  }
+
+  save(); render();
+  closeModal('modalNuovo');
+  showToast(status === 'attivo' ? '🔥 Permesso emesso!' : '📝 Bozza salvata!');
+  editingId = null;
+}
+
+// ── DETTAGLIO ──
+function openDetail(id) {
+  const p = permessi.find(x => x.id === id);
+  if (!p) return;
+
+  const badgeClass = {attivo:'badge-attivo',chiuso:'badge-chiuso',scaduto:'badge-scaduto',bozza:'badge-bozza'}[p.status];
+  const badgeLabel = {attivo:'Attivo',chiuso:'Chiuso',scaduto:'Scaduto',bozza:'Bozza'}[p.status];
+
+  document.getElementById('detailTitle').innerHTML = `🔥 ${p.id}`;
+
+  const checks = (p.checklist||[]).map((v,i) => {
+    const labels = [
+      'A1 — Preposto informato (lavori fuori area carpenteria/bordo scafo)',
+      'A2 — Materiali combustibili rimossi o protetti con teli/schermi ignifughi (10m)',
+      'A3 — Estintore 34A 233 BC presente nelle vicinanze',
+      'A4 — Addetto antincendio formato (rischio MEDIO) presente',
+      'A5 — Vie di esodo sgombre e facilmente percorribili',
+      'A6 — Attrezzature verificate (elettrico, tubazioni gas, valvole)',
+      'A7 — Bocchette aspirazione anomale assenti o preposto informato',
+      'A8 — Bombole ancorate su ceste/carrelli con cappellotti sulle valvole',
+      'A9 — Assenza residui combustibili da lavorazioni precedenti',
+      'A10 — Aperture/interstizi in pavimenti e pareti chiusi (materiali incombustibili)',
+      'A11 — Aperture scafo verso livelli inferiori/esterni protette (incombustibile)',
+      'A12 — Vie di fuga libere + estintori aggiuntivi collocati (M01PR07 pt.4)',
+      'B1 — Protezioni mantenute efficaci durante tutta la lavorazione',
+      'B2 — Nessuna proiezione particelle incandescenti in zone a rischio incendio',
+      'B3 — Durante le pause: apparecchiature spente / valvole gas chiuse',
+      'B4 — Parti calde riposte su supporti lontano da materiali combustibili',
+      'C1 — Verifica assenza particelle/surriscaldamenti (area e limitrofe)',
+      'C2 — Controllo dopo 30 min: assenza principi incendio (o fine lavori -30 min dal turno)'
+    ];
+    const ok = !!v;
+    return `<div class="check-row ${ok?'ok':'no'}">
+      <i class="fas ${ok?'fa-check-circle':'fa-circle-xmark'}"></i>
+      ${labels[i]||v||'—'}
+    </div>`;
+  }).join('');
+
+  const chkOk = (p.checklist||[]).filter(Boolean).length;
+
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-header-info">
+      <div class="detail-num">${p.id}</div>
+      <span class="badge ${badgeClass}" style="font-size:.72rem;">${badgeLabel}</span>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-item-label">Tipo Lavoro</div>
+        <div class="detail-item-val">${p.tipoLavoro||'—'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-item-label">Data</div>
+        <div class="detail-item-val">${p.dataInizio||'—'} · ${p.oraInizio||'?'}–${p.oraFine||'?'}</div>
+      </div>
+      <div class="detail-item detail-full">
+        <div class="detail-item-label">Luogo / Zona</div>
+        <div class="detail-item-val">${p.luogo||'—'}${p.commessa?' · Scafo '+p.commessa:''}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-item-label">Esecutore Lavori</div>
+        <div class="detail-item-val">${p.esecutore||'—'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-item-label">Addetto Antincendio</div>
+        <div class="detail-item-val">${p.antincendio||'—'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-item-label">Autorizzato da</div>
+        <div class="detail-item-val">${p.autorizzato||'—'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-item-label">Check completati</div>
+        <div class="detail-item-val" style="color:${chkOk===10?'#3dbe6e':chkOk>5?'#f5c518':'#e84040'};font-weight:700;">${chkOk}/10</div>
+      </div>
+      ${p.qualita?`<div class="detail-item"><div class="detail-item-label">Qualità</div><div class="detail-item-val">${p.qualita}</div></div>`:''}
+      ${p.descrizione?`<div class="detail-item detail-full"><div class="detail-item-label">1. Descrizione zona e lavoro</div><div class="detail-item-val">${p.descrizione}</div></div>`:''}
+      ${p.interferenze?`<div class="detail-item detail-full"><div class="detail-item-label">2. Interferenze con altre lavorazioni</div><div class="detail-item-val">${p.interferenze}</div></div>`:''}
+      ${p.dpi?`<div class="detail-item detail-full"><div class="detail-item-label">3. DPI/DPC aggiuntivi</div><div class="detail-item-val">${p.dpi}</div></div>`:''}
+      ${p.note?`<div class="detail-item detail-full"><div class="detail-item-label">Note aggiuntive</div><div class="detail-item-val">${p.note}</div></div>`:''}
+    </div>
+    <div class="checklist-preview">
+      <h4>✅ Verifiche Pre-Lavoro</h4>
+      ${checks}
+    </div>
+    <div class="detail-actions">
+      ${p.status==='attivo'?`<button class="btn-action green" onclick="changeStatus('${p.id}','chiuso');closeModal('modalDettaglio')"><i class="fas fa-check-circle"></i> Chiudi Permesso</button>`:''}
+      ${p.status==='bozza'?`<button class="btn-action green" onclick="changeStatus('${p.id}','attivo');closeModal('modalDettaglio')"><i class="fas fa-fire"></i> Emetti</button>`:''}
+      <button class="btn-action" onclick="printPermesso('${p.id}')"><i class="fas fa-print"></i> Stampa</button>
+      <button class="btn-action red" onclick="deletePermesso('${p.id}');closeModal('modalDettaglio')"><i class="fas fa-trash"></i> Elimina</button>
+    </div>
+  `;
+
+  document.getElementById('modalDettaglio').classList.add('open');
+}
+
+// ── AZIONI ──
+function changeStatus(id, newStatus) {
+  const p = permessi.find(x => x.id === id);
+  if (p) { p.status = newStatus; save(); render(); }
+  const msg = newStatus === 'chiuso' ? '✅ Permesso chiuso!' : '🔥 Permesso emesso!';
+  showToast(msg);
+}
+
+function deletePermesso(id) {
+  if (!confirm('Eliminare questo permesso?')) return;
+  permessi = permessi.filter(x => x.id !== id);
+  save(); render();
+  showToast('🗑️ Permesso eliminato');
+}
+
+// ── STAMPA ──
+function printPermesso(id) {
+  openDetail(id);
+  setTimeout(() => {
+    document.getElementById('modalDettaglio').classList.add('printing');
+    window.print();
+    document.getElementById('modalDettaglio').classList.remove('printing');
+  }, 200);
+}
+
+// ── MODAL ──
+function openNewModal() {
+  editingId = null;
+  document.getElementById('fDataInizio').value = new Date().toISOString().split('T')[0];
+  ['fLuogo','fEsecutore','fAntincendio','fAutorizzato','fCommessa','fDescrizione','fNote','fInterferenze','fDpi','fQualita']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fTipoLavoro').value = '';
+  document.getElementById('fOraInizio').value = '08:00';
+  document.getElementById('fOraFine').value = '17:00';
+  document.querySelectorAll('#modalNuovo .chk').forEach(c => c.checked = false);
+  document.getElementById('modalNuovo').classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── CHIUDI con ESC ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['modalNuovo','modalDettaglio'].forEach(id => closeModal(id));
+  }
+});
+
+// Chiudi click fuori
+['modalNuovo','modalDettaglio'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) closeModal(id);
+  });
+});
+
+// ── INIT ──
+load();
+render();
+</script>
+</body>
+</html>
